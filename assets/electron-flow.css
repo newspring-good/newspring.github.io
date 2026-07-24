@@ -1,0 +1,178 @@
+:root {
+  --bg: #f4f6f9;
+  --panel-bg: #ffffff;
+  --border: #d7dce3;
+  --text: #1c2430;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --wire: #334155;
+  --electron: #2563eb;
+  --conducting: #16a34a;
+  --blocking: #dc2626;
+  --current-arrow: #f59e0b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12161c;
+    --panel-bg: #1a2029;
+    --border: #2b3340;
+    --text: #e6eaf0;
+    --muted: #93a0b0;
+    --accent: #4d8dff;
+    --accent-hover: #6ea0ff;
+    --wire: #b7c1cd;
+    --electron: #5b9dff;
+    --conducting: #4ade80;
+    --blocking: #f87171;
+    --current-arrow: #fbbf24;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.app { display: flex; flex-direction: column; height: 100vh; }
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.app-header h1 { font-size: 1.15rem; margin: 0; }
+.home-link { text-decoration: none; margin-right: 4px; }
+
+.mode-tabs { display: flex; gap: 6px; }
+.tab {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+button:hover { background: var(--accent-hover); }
+
+.btn-toggle { display: flex; gap: 6px; }
+.btn-toggle button {
+  flex: 1;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  padding: 6px 4px;
+}
+.btn-toggle button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.app-main { flex: 1; display: flex; min-height: 0; }
+
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  overflow: auto;
+  gap: 12px;
+}
+
+#circuit-svg {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--wire);
+}
+
+.wire { stroke: var(--wire); stroke-width: 2.5; fill: none; }
+.comp-line { stroke: var(--wire); stroke-width: 2.5; fill: none; }
+.node-dot { fill: var(--wire); }
+.value-label { fill: var(--muted); font-size: 12px; }
+.state-label { font-size: 11px; font-weight: 700; }
+.state-label.conducting { fill: var(--conducting); }
+.state-label.blocking { fill: var(--blocking); }
+.diode-shape.conducting { stroke: var(--conducting); fill: none; }
+.diode-shape.blocking { stroke: var(--blocking); fill: none; }
+.current-arrow { fill: var(--current-arrow); }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  max-width: 700px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot.electron { background: var(--electron); }
+.dot.conducting { background: var(--conducting); }
+.dot.blocking { background: var(--blocking); }
+.arrow-swatch { color: var(--current-arrow); font-weight: bold; }
+.arrow-swatch.orange { color: var(--current-arrow); }
+
+.side-panel {
+  width: 300px;
+  flex: none;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--border);
+  padding: 14px;
+  overflow-y: auto;
+}
+.side-panel h2 { font-size: 0.95rem; margin: 16px 0 8px; }
+.side-panel h2:first-child { margin-top: 0; }
+
+.control-row { margin-bottom: 12px; font-size: 0.8rem; }
+.control-row label { display: block; margin-bottom: 4px; color: var(--muted); }
+.control-row input[type="range"] { width: 100%; }
+
+.info-panel {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel-bg));
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+
+.explain-panel {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.disclaimer { font-size: 0.68rem; color: var(--muted); line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .app-main { flex-direction: column; }
+  .side-panel { width: 100%; border: none; border-top: 1px solid var(--border); }
+}

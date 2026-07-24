@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PN 접합 반도체 시뮬레이터 — 전자/정공의 움직임</title>
+<link rel="stylesheet" href="assets/pn-junction.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <h1><a href="index.html" class="home-link" title="홈으로">🏠</a> 🔬 PN 접합 반도체 시뮬레이터</h1>
+    <div class="header-controls">
+      <button id="btn-play">일시정지</button>
+      <button id="btn-reset" class="secondary">초기화</button>
+    </div>
+  </header>
+
+  <div class="app-main">
+
+    <main class="stage">
+      <canvas id="pn-canvas" width="960" height="440"></canvas>
+
+      <div class="legend">
+        <span class="legend-item"><i class="dot electron"></i>자유 전자 (다수, N형)</span>
+        <span class="legend-item"><i class="dot electron minor"></i>전자 (소수, P형 내부)</span>
+        <span class="legend-item"><i class="dot hole"></i>자유 정공 (다수, P형)</span>
+        <span class="legend-item"><i class="dot hole minor"></i>정공 (소수, N형 내부)</span>
+        <span class="legend-item"><i class="dot ion-plus"></i>도너 이온 (고정, ⊕)</span>
+        <span class="legend-item"><i class="dot ion-minus"></i>억셉터 이온 (고정, ⊖)</span>
+        <span class="legend-item"><i class="arrow-swatch">→</i>공핍층 내부 전기장</span>
+      </div>
+    </main>
+
+    <aside class="side-panel">
+      <h2>바이어스 제어</h2>
+      <div class="control-row">
+        <label for="bias-slider">바이어스 전압: <span id="bias-value">0.00 V</span></label>
+        <input type="range" id="bias-slider" min="-5" max="1" step="0.05" value="0">
+        <div class="bias-scale">
+          <span>← 역방향</span><span>평형</span><span>순방향 →</span>
+        </div>
+      </div>
+      <div id="state-badge" class="state-badge equilibrium">평형 상태 — 순 전류 없음</div>
+
+      <div class="control-row">
+        <label for="speed-slider">애니메이션 속도</label>
+        <input type="range" id="speed-slider" min="0.2" max="2" step="0.1" value="1">
+      </div>
+      <div class="control-row">
+        <label for="density-slider">캐리어(전자/정공) 개수</label>
+        <input type="range" id="density-slider" min="8" max="40" step="2" value="20">
+      </div>
+
+      <h2>전류계</h2>
+      <div class="meter-track">
+        <div class="meter-zero"></div>
+        <div id="meter-fill" class="meter-fill"></div>
+      </div>
+      <div id="meter-label" class="meter-label">전류 없음</div>
+
+      <h2>현재 상태</h2>
+      <div id="info-panel" class="info-panel">
+        공핍층 폭: <span id="info-width">-</span><br>
+        전류 흐름: <span id="info-current">-</span>
+      </div>
+
+      <details open>
+        <summary>개념 설명</summary>
+        <div id="explain-panel" class="explain-panel"></div>
+      </details>
+
+      <p class="disclaimer">※ 이 시뮬레이션은 확산, 재결합, 공핍층 형성, 바이어스에 따른 전류 흐름이라는 PN 접합의 핵심 개념을 보여주기 위한 <b>근사적 개념 모델</b>입니다. 실제 반도체의 정량적 물성치를 계산한 것이 아닙니다.</p>
+    </aside>
+
+  </div>
+</div>
+<script src="assets/pn-junction.js"></script>
+</body>
+</html>

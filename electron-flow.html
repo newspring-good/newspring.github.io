@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전자 이동 시각화 — 직렬/병렬 회로 (저항·다이오드)</title>
+<link rel="stylesheet" href="assets/electron-flow.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <h1><a href="index.html" class="home-link" title="홈으로">🏠</a> 🔌 전자 이동 시각화</h1>
+    <div class="mode-tabs">
+      <button id="tab-series" class="tab active">직렬 회로</button>
+      <button id="tab-parallel" class="tab">병렬 회로</button>
+    </div>
+  </header>
+
+  <div class="app-main">
+
+    <main class="stage">
+      <svg id="circuit-svg" viewBox="0 0 620 400" preserveAspectRatio="xMidYMin meet">
+        <g id="static-layer"></g>
+        <g id="electrons-layer"></g>
+      </svg>
+
+      <div class="legend">
+        <span class="legend-item"><i class="dot electron"></i>전자 (실제 이동 방향: − → 외부회로 → +)</span>
+        <span class="legend-item"><i class="arrow-swatch orange">➜</i>관례상 전류 방향 (+ → 외부회로 → −)</span>
+        <span class="legend-item"><i class="dot conducting"></i>다이오드 도통(전류 흐름)</span>
+        <span class="legend-item"><i class="dot blocking"></i>다이오드 차단(전류 없음)</span>
+      </div>
+    </main>
+
+    <aside class="side-panel">
+      <h2>회로 값 설정</h2>
+      <div class="control-row">
+        <label for="v-slider">배터리 전압: <span id="v-value">9.0 V</span></label>
+        <input type="range" id="v-slider" min="1" max="20" step="0.5" value="9">
+      </div>
+      <div class="control-row">
+        <label for="r1-slider">R1: <span id="r1-value">220 Ω</span></label>
+        <input type="range" id="r1-slider" min="10" max="1000" step="10" value="220">
+      </div>
+      <div class="control-row">
+        <label for="r2-slider">R2: <span id="r2-value">470 Ω</span></label>
+        <input type="range" id="r2-slider" min="10" max="1000" step="10" value="470">
+      </div>
+      <div class="control-row">
+        <label>다이오드 방향</label>
+        <div class="btn-toggle">
+          <button id="btn-forward" class="active">순방향 (도통)</button>
+          <button id="btn-reverse">역방향 (차단)</button>
+        </div>
+      </div>
+
+      <h2>계산 결과</h2>
+      <div id="result-panel" class="info-panel"></div>
+
+      <h2>개념 설명</h2>
+      <div id="explain-panel" class="explain-panel"></div>
+
+      <p class="disclaimer">※ 다이오드는 순방향 전압강하 0.7V의 이상적 스위치로, 도선은 저항이 없다고 가정한 근사적 개념 모델입니다. 전자의 이동 속도는 계산된 전류에 비례하도록 시각화한 것이며 실제 전자의 물리적 이동 속도(드리프트 속도)를 정량적으로 재현한 것은 아닙니다.</p>
+    </aside>
+
+  </div>
+</div>
+<script src="assets/electron-flow.js"></script>
+</body>
+</html>

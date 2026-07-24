@@ -1,0 +1,85 @@
+:root {
+  --bg: #f4f6f9;
+  --panel-bg: #ffffff;
+  --border: #d7dce3;
+  --text: #1c2430;
+  --muted: #6b7684;
+  --accent: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12161c;
+    --panel-bg: #1a2029;
+    --border: #2b3340;
+    --text: #e6eaf0;
+    --muted: #93a0b0;
+    --accent: #4d8dff;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hub {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.hub h1 {
+  font-size: 1.8rem;
+  margin: 0 0 8px;
+}
+
+.lead {
+  color: var(--muted);
+  margin: 0 0 32px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: block;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: var(--accent);
+}
+
+.card p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}

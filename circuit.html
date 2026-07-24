@@ -1,4 +1,109 @@
-<HTML>
-<HEAD><TITLE>GOOOOD</TITLE>
-</HEAD><BODY>안녕히계세요</BODY>
-<HTML>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회로 설계기 — 기계 모형 기반 회로 설계 도구</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <h1><a href="index.html" class="home-link" title="홈으로">🏠</a> ⚡ 회로 설계기</h1>
+    <div class="header-controls">
+      <label class="field-inline">
+        기계 모형
+        <select id="machine-select">
+          <option value="">-- 모형 선택 --</option>
+          <option value="motor">DC 모터 구동 회로</option>
+          <option value="led">LED 표시 회로</option>
+          <option value="relay">릴레이 부하 구동 회로</option>
+          <option value="solar">태양광 충전 회로</option>
+          <option value="sensor">센서-MCU 인터페이스 회로</option>
+          <option value="blank">빈 캔버스</option>
+        </select>
+      </label>
+      <button id="btn-save">저장</button>
+      <button id="btn-load">불러오기</button>
+      <button id="btn-export-json">JSON 내보내기</button>
+      <button id="btn-import-json">JSON 가져오기</button>
+      <input type="file" id="file-import" accept="application/json" hidden>
+      <button id="btn-export-svg">이미지로 내보내기</button>
+      <button id="btn-clear" class="danger">전체 지우기</button>
+    </div>
+  </header>
+
+  <div class="app-main">
+
+    <aside class="palette">
+      <h2>부품 팔레트</h2>
+      <p class="hint">클릭해서 캔버스에 부품을 추가하세요. 부품을 드래그해 옮기고, 단자(작은 원)를 순서대로 클릭하면 전선이 연결됩니다.</p>
+      <div class="palette-grid" id="palette-grid"></div>
+    </aside>
+
+    <main class="canvas-wrap" id="canvas-wrap">
+      <svg id="canvas" viewBox="0 0 1400 900" preserveAspectRatio="xMinYMin meet">
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--grid-line)" stroke-width="1"/>
+          </pattern>
+          <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="1400" height="900" fill="url(#grid)"/>
+        <g id="wires-layer"></g>
+        <g id="components-layer"></g>
+      </svg>
+    </main>
+
+    <aside class="side-panel" id="side-panel">
+      <div id="properties-panel">
+        <h2>속성</h2>
+        <p class="hint">부품이나 전선을 클릭하면 여기서 값을 편집할 수 있습니다. (선택한 항목은 Delete 키로 삭제)</p>
+      </div>
+      <div id="calculators-panel">
+        <h2>계산기</h2>
+
+        <details open>
+          <summary>옴의 법칙 계산기</summary>
+          <div class="calc-body">
+            <label>구할 값
+              <select id="ohm-target">
+                <option value="V">전압 V (V)</option>
+                <option value="I">전류 I (A)</option>
+                <option value="R">저항 R (Ω)</option>
+              </select>
+            </label>
+            <label>전압 V (V) <input type="number" id="ohm-v" step="any"></label>
+            <label>전류 I (A) <input type="number" id="ohm-i" step="any"></label>
+            <label>저항 R (Ω) <input type="number" id="ohm-r" step="any"></label>
+            <button id="ohm-calc">계산</button>
+            <div class="calc-result" id="ohm-result"></div>
+          </div>
+        </details>
+
+        <details>
+          <summary>LED 저항 계산기</summary>
+          <div class="calc-body">
+            <label>공급 전압 Vs (V) <input type="number" id="led-vs" value="9" step="any"></label>
+            <label>LED 순방향전압 Vf (V) <input type="number" id="led-vf" value="2" step="any"></label>
+            <label>목표 전류 If (mA) <input type="number" id="led-if" value="20" step="any"></label>
+            <button id="led-calc">계산</button>
+            <div class="calc-result" id="led-result"></div>
+          </div>
+        </details>
+
+        <details>
+          <summary>회로 요약</summary>
+          <div class="calc-body" id="circuit-summary">부품이 없습니다.</div>
+        </details>
+      </div>
+    </aside>
+
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
